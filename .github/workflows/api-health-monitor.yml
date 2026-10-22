@@ -2,7 +2,7 @@ name: Energy API Health Monitor
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/10 * * * 1-5" # every 10 min, Monday-Friday only (backend is down weekends), UTC
   workflow_dispatch:
 
 jobs:
@@ -27,6 +27,5 @@ jobs:
           ENERGY_API_KEY: ${{ secrets.ENERGY_API_KEY }}
           ENERGY_AUTH_KEY: ${{ secrets.ENERGY_AUTH_KEY }}
           ENERGY_TEST_DIAL_CODE: ${{ secrets.ENERGY_TEST_DIAL_CODE }}
-          ENERGY_TEST_PHONE: ${{ secrets.ENERGY_TEST_PHONE }}
           ENERGY_TEST_PASSWORD: ${{ secrets.ENERGY_TEST_PASSWORD }}
         run: python scripts/api_health_check.py
