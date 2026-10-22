@@ -1,0 +1,32 @@
+name: Energy API Health Monitor
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  check-critical-apis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run health check
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          ENERGY_API_BASE_URL: ${{ secrets.ENERGY_API_BASE_URL }}
+          ENERGY_API_KEY: ${{ secrets.ENERGY_API_KEY }}
+          ENERGY_AUTH_KEY: ${{ secrets.ENERGY_AUTH_KEY }}
+          ENERGY_TEST_DIAL_CODE: ${{ secrets.ENERGY_TEST_DIAL_CODE }}
+          ENERGY_TEST_PHONE: ${{ secrets.ENERGY_TEST_PHONE }}
+          ENERGY_TEST_PASSWORD: ${{ secrets.ENERGY_TEST_PASSWORD }}
+        run: python scripts/api_health_check.py
