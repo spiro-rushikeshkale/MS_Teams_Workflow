@@ -62,7 +62,7 @@ def build_critical_apis() -> list[dict]:
                 "longitude": 36.8056123,
                 "FCM_Device_Token": "dfghjkl45678",
             },
-            "expected_status": 201,  # TEMP: forced mismatch to test Teams alert, revert to 200 after
+            "expected_status": 200,
         },
     ]
 
