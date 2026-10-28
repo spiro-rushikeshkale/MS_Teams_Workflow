@@ -7,7 +7,7 @@ any API that does not return its expected status code, times out, or
 otherwise fails to respond. On success it prints a one-line status and
 sends nothing to Teams, to keep the channel quiet.
 
-Each API can list several request payloads to try (e.g. several test
+Each API can list several request payloads to try (e.g. several tests
 accounts). The first one that succeeds marks the API healthy; Teams is
 only alerted once every payload has failed, so one broken test account
 doesn't get mistaken for a real API outage.
