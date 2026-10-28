@@ -25,12 +25,19 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                // The agent's system Python blocks "pip install" directly
+                // (PEP 668 "externally managed environment"), so use an
+                // isolated virtual environment instead of forcing it.
+                sh '''
+                    python3 -m venv .venv
+                    .venv/bin/pip install --upgrade pip
+                    .venv/bin/pip install -r requirements.txt
+                '''
             }
         }
         stage('Run health check') {
             steps {
-                sh 'python3 scripts/api_health_check.py'
+                sh '.venv/bin/python scripts/api_health_check.py'
             }
         }
     }
