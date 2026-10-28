@@ -64,7 +64,7 @@ def build_critical_apis() -> list[dict]:
             "method": "POST",
             "url": f"{base_url}/api/agent/login",
             "headers": headers,
-            "expected_status": 200,
+            "expected_status": 201,  # TEMP: forced mismatch to test Jenkins->Teams alert, revert to 200 after
             # One payload per test account - tried in order until one succeeds.
             "payloads": [
                 {
