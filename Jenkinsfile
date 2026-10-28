@@ -2,10 +2,11 @@ pipeline {
     agent any
 
     triggers {
-        // Runs roughly every 10 minutes. Jenkins' "H" (hash) symbol picks a
-        // consistent offset based on the job name instead of firing exactly
-        // on the round minute, to spread load across the shared Jenkins server.
-        cron('H/10 * * * *')
+        // Runs roughly every 30 minutes, Monday-Friday only (backend is down
+        // weekends). Jenkins' "H" (hash) symbol picks a consistent offset
+        // instead of firing exactly on the round minute, to spread load
+        // across the shared Jenkins server. Day-of-week field: 1-5 = Mon-Fri.
+        cron('H/30 * * * 1-5')
     }
 
     // Temporary: reading secrets from job Build Parameters (set via the job's
